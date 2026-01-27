@@ -25,7 +25,7 @@ else:
 mic = alsaaudio.PCM(alsaaudio.PCM_CAPTURE, alsaaudio.PCM_NORMAL, 
                     channels=4, rate=16000, 
                     format=alsaaudio.PCM_FORMAT_S16_LE, 
-                    periodsize=160, device)
+                    periodsize=160, device=device)
 
 def set_ring(r, g, b, brightness=2):
     data = [0x00] * 4
