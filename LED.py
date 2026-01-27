@@ -12,11 +12,20 @@ spi.open(0, 0)
 spi.max_speed_hz = 8000000
 
 # --- Audio Setup ---
-# Verify card with 'arecord -l'. Usually hw:1 for ReSpeaker.
+card_idx = -1
+for i, name in enumerate(alsaaudio.cards()):
+    if "respeaker" in name.lower():
+        card_idx = i
+        break
+if card_idx != -1:
+    device = f'hw:{card_idx}'
+else:
+    print("ReSpeaker not found!")
+
 mic = alsaaudio.PCM(alsaaudio.PCM_CAPTURE, alsaaudio.PCM_NORMAL, 
                     channels=4, rate=16000, 
                     format=alsaaudio.PCM_FORMAT_S16_LE, 
-                    periodsize=160, device='hw:2')
+                    periodsize=160, device)
 
 def set_ring(r, g, b, brightness=2):
     data = [0x00] * 4
