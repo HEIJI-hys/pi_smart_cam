@@ -12,9 +12,10 @@ spi.open(0, 0)
 spi.max_speed_hz = 8000000
 
 # --- Audio Setup ---
+device = None
 card_idx = -1
 for i, name in enumerate(alsaaudio.cards()):
-    if "respeaker" in name.lower():
+    if "4mic" in name.lower():
         card_idx = i
         break
 if card_idx != -1:
